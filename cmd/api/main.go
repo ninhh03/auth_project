@@ -2,8 +2,10 @@ package main
 
 import (
 	"auth_project/internal/config"
+	"auth_project/internal/seed"
 )
 
 func main() {
-	config.ConnectDB()
+	db := config.ConnectDB()
+	seed.Seed(db)
 }

@@ -1,0 +1,19 @@
+# Database
+- users:
+  - id - int - primary key - auto increment
+  - fullname - varchar
+  - age - int
+  - address - varchar
+  - email - varchar - unique
+  - password - varchar
+- roles:
+  - id - int - primary key - auto increment
+  - name - varchar
+- user_roles:
+  - user_id - int - foreign key -> users.id
+  - role_id - int - foreign key -> role.id
+- refresh_tokens:
+  - id - int - primary key - auto increment
+  - user_id - int
+  - token - varchar
+  - expires_at - datetime

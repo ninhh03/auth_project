@@ -9,9 +9,9 @@ import (
 func main() {
 	db, err := config.ConnectDB()
 	if err != nil {
-		log.Fatalf("Connect failed: %v", err)
+		log.Fatalf("connect failed: %v", err)
 	}
 	if err := seed.Seed(db);  err != nil {
-		log.Fatalf("Seed data failed: %v", err)
+		log.Fatalf("seed data failed: %v", err)
 	}
 }

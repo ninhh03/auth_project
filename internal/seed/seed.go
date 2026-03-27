@@ -6,19 +6,33 @@ import (
 	"gorm.io/gorm"
 )
 
-func Seed(db *gorm.DB) {
+func Seed(db *gorm.DB) error {
 	roles := []models.Role{
 		{Name: "admin"},
 		{Name: "user"},
 	}
 	for _, r := range roles {
-		db.FirstOrCreate(&r, models.Role{Name: r.Name})
+		if err := db.FirstOrCreate(&r, models.Role{Name: r.Name}).Error; err != nil {
+			return err
+		}
 	}
 
-	hash1, _ := utils.HashPassword("123")
-	hash2, _ := utils.HashPassword("456")
-	hash3, _ := utils.HashPassword("789")
-	hash4, _ := utils.HashPassword("101112")
+	hash1, err := utils.HashPassword("123")
+	if err != nil {
+		return err
+	}
+	hash2, err := utils.HashPassword("456")
+	if err != nil {
+		return err
+	}
+	hash3, err := utils.HashPassword("789")
+	if err != nil {
+		return err
+	}
+	hash4, err := utils.HashPassword("101112")
+	if err != nil {
+		return err
+	}
 	users := []models.User{
 		{
 			FullName: "Nguyễn Dương Ninh",
@@ -48,24 +62,25 @@ func Seed(db *gorm.DB) {
 			Email:    "enciemen@gmai.com",
 			Password: hash4,
 		},
-		{
-			FullName: "Nguyễn Công Minh Nghĩa",
-			Age:      23,
-			Address:  "Hà Nội",
-			Email:    "enciemen@gmai.com",
-			Password: hash4,
-		},
 	}
 	for _, u := range users {
-		db.FirstOrCreate(&u, models.User{Email: u.Email})
+		if err := db.FirstOrCreate(&u, models.User{Email: u.Email}).Error; err != nil {
+			return err
+		}
 	}
 
 	var user1 models.User
-	db.Where("email = ?", "ndninh.040303@gmai.com").First(&user1)
+	if err := db.Where("email = ?", "ndninh.040303@gmai.com").First(&user1).Error; err != nil {
+		return err
+	}
 	var role1 models.Role
-	db.Where("name = ?", "admin").First(&role1)
+	if err := db.Where("name = ?", "admin").First(&role1).Error; err != nil {
+		return err
+	}
 	var role2 models.Role
-	db.Where("name = ?", "user").First(&role2)
+	if err := db.Where("name = ?", "user").First(&role2).Error; err != nil {
+		return err
+	}
 	user_roles := []models.UserRole {
 		{
 			UserID: user1.ID,
@@ -76,10 +91,10 @@ func Seed(db *gorm.DB) {
 			RoleID: role2.ID,
 		},
 	}
-	for _,ur := range user_roles {
-		db.FirstOrCreate(&ur, models.UserRole{
-			UserID: ur.UserID,
-			RoleID: ur.RoleID,
-		})
+	for _, ur := range user_roles {
+		if err := db.FirstOrCreate(&ur, models.UserRole {UserID: ur.UserID, RoleID: ur.RoleID,}).Error; err != nil {
+			return err
+		}
 	}
+	return nil
 }

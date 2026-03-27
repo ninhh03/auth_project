@@ -12,6 +12,6 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 	if err := seed.Seed(db);  err != nil {
-		log.Fatalf("Seed data failed:", err)
+		log.Fatalf("Seed data failed: %v", err)
 	}
 }

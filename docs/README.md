@@ -17,3 +17,30 @@
   - user_id - int
   - token - varchar
   - expires_at - datetime
+# Folder structure
+- api
+  - v1
+- cmd
+  - api
+    - main.go
+- docs
+  - README.md
+- internal
+  - config
+  - handlers
+  - middlewares
+  - models
+  - repository
+  - seed
+  - services
+- pkg
+  - responses
+  - utils
+- .env
+- .gitignore
+- go.mod
+- go.sum
+
+# Tech stack
+- Go, Gin
+- MySQL

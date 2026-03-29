@@ -1,8 +1,8 @@
 package main
 
 import (
+  "auth_project/internal/seed"
 	"auth_project/internal/config"
-	"auth_project/internal/seed"
 	"log"
 )
 

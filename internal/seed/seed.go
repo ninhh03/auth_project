@@ -81,7 +81,7 @@ func Seed(db *gorm.DB) error {
 	if err := db.Where("name = ?", "user").First(&role2).Error; err != nil {
 		return err
 	}
-	user_roles := []models.UserRole {
+	user_roles := []models.UserRole{
 		{
 			UserID: user1.ID,
 			RoleID: role1.ID,
@@ -92,7 +92,7 @@ func Seed(db *gorm.DB) error {
 		},
 	}
 	for _, ur := range user_roles {
-		if err := db.FirstOrCreate(&ur, models.UserRole {UserID: ur.UserID, RoleID: ur.RoleID,}).Error; err != nil {
+		if err := db.FirstOrCreate(&ur, models.UserRole{UserID: ur.UserID, RoleID: ur.RoleID}).Error; err != nil {
 			return err
 		}
 	}
